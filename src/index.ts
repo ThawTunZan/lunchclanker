@@ -90,7 +90,7 @@ export default {
 			await ctx.reply(`Added "${newLocation}". Available locations:\n${text}`);
 		});
 
-		bot.remove('remove', async (ctx) => {
+		bot.command('remove', async (ctx) => {
 			if (!ctx.chat) return;
 			const key = `locations_${ctx.chat.id}`;
 
