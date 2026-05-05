@@ -90,6 +90,31 @@ export default {
 			await ctx.reply(`Added "${newLocation}". Available locations:\n${text}`);
 		});
 
+		bot.remove('remove', async (ctx) => {
+			if (!ctx.chat) return;
+			const key = `locations_${ctx.chat.id}`;
+
+			let locations = (await env.KV.get(key, { type: 'json' })) as string[] | null;
+			if (!locations) {
+				locations = [...DEFAULT_LOCATIONS];
+			}
+
+			const locationToRemove = ctx.match.trim();
+			if (!locationToRemove) {
+				return ctx.reply("Please specify a location to remove. Example: /remove McDonald's");
+			}
+			if (!locations.includes(locationToRemove)) {
+				return ctx.reply('That location is not in the list!');
+			}
+
+			// Remove the location and save to KV
+			locations = locations.filter((loc) => loc !== locationToRemove);
+			await env.KV.put(key, JSON.stringify(locations));
+
+			const text = locations.map((loc) => `- ${loc}`).join('\n');
+			await ctx.reply(`Removed "${locationToRemove}". Available locations:\n${text}`);
+		});
+
 		bot.command('help', async (ctx) => {
 			const helpText =
 				'Commands:\n' +
