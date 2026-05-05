@@ -8,12 +8,19 @@
 	"main": "src/index.ts",
 	"compatibility_date": "2026-05-05",
 	"observability": {
-		"enabled": true
+		"enabled": true,
 	},
 	"upload_source_maps": true,
-	"compatibility_flags": [
-		"nodejs_compat"
-	]
+	"compatibility_flags": ["nodejs_compat"],
+	"kv_namespaces": [
+		{
+			"binding": "KV",
+			"id": "98148f30f9be4f82aeb1a1ad1dd3cd43",
+
+			// Optional: preview_id used when running `wrangler dev` for local dev
+			"preview_id": "<ID_OF_PREVIEW_KV_NAMESPACE_FOR_LOCAL_DEVELOPMENT>",
+		},
+	],
 	/**
 	 * Smart Placement
 	 * https://developers.cloudflare.com/workers/configuration/smart-placement/#smart-placement
